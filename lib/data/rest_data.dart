@@ -1,6 +1,3 @@
-import 'dart:ffi';
-
-import 'package:flutter/foundation.dart';
 import 'package:fluttersqflite/utils/network_util.dart';
 
 import '../models/user.dart';

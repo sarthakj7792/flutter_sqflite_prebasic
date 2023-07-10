@@ -8,13 +8,15 @@ abstract class LoginPageContract {
 }
 
 class LoginPagePresenter {
-  late LoginPageContract _view;
+  late final LoginPageContract _view;
   RestData api = RestData();
   LoginPagePresenter(this._view);
 
   doLogin(String username, String password) {
     api.login(username, password).then((user) {
       _view.onLoginsuccess(user);
-    }).catchError((onError) => _view.onLoginError(onError.toString()));
+    }).catchError((onError) {
+      _view.onLoginError(onError.toString());
+    });
   }
 }

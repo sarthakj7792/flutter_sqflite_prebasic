@@ -13,11 +13,10 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> implements LoginPageContract {
-  late BuildContext _ctx;
-  late bool _isLoading;
   final formKey = GlobalKey<FormState>();
 //  final scaffoldKey = GlobalKey<ScaffoldState>();
 
+  // ignore: prefer_typing_uninitialized_variables
   late final _username, _password;
 
   late LoginPagePresenter _presenter;
@@ -30,7 +29,6 @@ class _LoginPageState extends State<LoginPage> implements LoginPageContract {
     final form = formKey.currentState;
     if (form!.validate()) {
       setState(() {
-        _isLoading = true;
         form.save();
         _presenter.doLogin(_username, _password);
       });
@@ -43,7 +41,6 @@ class _LoginPageState extends State<LoginPage> implements LoginPageContract {
 
   @override
   Widget build(BuildContext context) {
-    _ctx = context;
     var loginBtn = ElevatedButton(
       style: ElevatedButton.styleFrom(backgroundColor: Colors.green),
       onPressed: _submit,
@@ -82,29 +79,22 @@ class _LoginPageState extends State<LoginPage> implements LoginPageContract {
       appBar: AppBar(
         title: const Text('Login Page'),
       ),
-      body: Container(
-          child: Center(
+      body: Center(
         child: loginForm,
-      )),
+      ),
     );
   }
 
   @override
   void onLoginError(String error) {
-    // TODO: implement onLoginError
     _showSnackBar(error);
-    setState(() {
-      _isLoading = false;
-    });
+    setState(() {});
   }
 
   @override
   void onLoginsuccess(User user) async {
-    // TODO: implement onLoginsuccess
     _showSnackBar(user.toString());
-    setState(() {
-      _isLoading = false;
-    });
+    setState(() {});
     var db = DatabaseHelper();
     await db
         .saveUser(user)

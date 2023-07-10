@@ -1,4 +1,3 @@
-import 'package:http/http.dart' as http;
 
 class NetworkUtil {
   static final NetworkUtil _instance = NetworkUtil.internal();
